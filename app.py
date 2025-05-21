@@ -11,7 +11,9 @@ if st.button("Fetch Weather"):
     try:
         data = fetch_weather(city)
         daily = data["days"]
-        weather_objs = [WeatherDay(day["datetime"], day["tempmax"], day["tempmin"], day["conditions"]) for day in daily]
+        # weather_objs = [WeatherDay(day["datetime"], day["tempmax"], day["tempmin"], day["conditions"]) for day in daily]
+        weather_objs = [WeatherDay(day["datetime"], day["tempmax"], day["tempmin"], day["conditions"], city) for day in daily]
+
         save_weather_to_csv(weather_objs, "weather_history.csv")
 
         df = pd.DataFrame([w.to_dict() for w in weather_objs])
